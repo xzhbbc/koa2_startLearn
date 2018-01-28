@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <script src="./jquery-3.2.1.min.js"></script>
+    <script>
+    $(function() {
+        $('#submit').click(function() {
+            var data = {
+                user: $('#user').val(),
+                pass: $('#pass').val()
+            }
+
+            $.ajax({
+                url: '/api/login',
+                data: data,
+                type: 'POST',
+                success: function(res) {
+                    if (res.code == 1) {
+                        alert(res.meg)
+                        $('#pass').val('')
+                        $('#user').val('')
+                    }
+                    if (res.code == 0) {
+                        window.location.href = '/success'
+                    }
+                    if (res.code == 2) {
+                        alert(res.meg)
+                        window.location.href = '/success'
+                    }
+                }
+            })
+        })
+    })
+    </script>
+</head>
+<body>
+    <h1>登录</h1>
+    <div class="register">
+        <label>用户名:</label><input type="text" id="user"/>
+        <label>密码:</label><input type="password" id="pass"/><br/><br/>
+        <input type="button" value="登录" id="submit"/>
+    </div>
+</body>
+</html>

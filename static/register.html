@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册页</title>
+    <script src="./jquery-3.2.1.min.js"></script>
+    <script>
+        $(function() {
+            $('#submit').click(function() {
+                var data = {
+                    user: $('#user').val(),
+                    pass: $('#pass').val()
+                }
+                // console.log($('#user').val())
+                // console.log($('#pass').val())
+                // window.location.href = '/login'
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/register',
+                    data: data,
+                    success: function(res) {
+                        if (res.code = 0) {
+                            window.location.href = '/login'
+                            // alert(res.meg)
+                        }
+                        if (res.code = 1) {
+                            alert(res.meg)
+                            $('#pass').val('')
+                            $('#user').val('')
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    <h1>注册</h1>
+    <div class="register">
+        <label>用户名:</label><input type="text" id="user"/>
+        <label>密码:</label><input type="password" id="pass"/><br/><br/>
+        <input type="button" value="注册" id="submit"/>
+        <a href="/login">登录跳转</a>
+    </div>
+</body>
+</html>
